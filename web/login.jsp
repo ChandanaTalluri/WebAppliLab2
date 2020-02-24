@@ -11,7 +11,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
     </head>
-    <body>
-        <h1>Login!</h1>
+    <body style=" background-image: url(images/other4.jpg)">
+        <h1>Welcome <spam>${customer.strFirstName}</spam> !!</h1>
+        <form action="index.html" method="get">
+        <input type="hidden" name="action" value="join">
+        <input type="submit" value="Return">
+    </form>
     </body>
 </html>

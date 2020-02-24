@@ -58,12 +58,12 @@ public class AssetAccountDBA {
         objArrListAssetAccount.add(objAssetAccount);
     }
 
-    public static ArrayList<AssetAccount> findAccountDetails(int custID, ArrayList<AssetAccount> arrListAssetAccount) {
+    public static ArrayList<AssetAccount> findAccountDetails(String custID, ArrayList<AssetAccount> arrListAssetAccount) {
        ArrayList<AssetAccount> objAA = new ArrayList<AssetAccount>();
         if(null != arrListAssetAccount && arrListAssetAccount.size()>0){
             int iSize = arrListAssetAccount.size();
             for(int iCount = 0 ; iCount<iSize ; iCount++){
-                if(custID == arrListAssetAccount.get(iCount).getCustID()){
+                if(custID.equals(arrListAssetAccount.get(iCount).getCustID())){
                     objAA.add(arrListAssetAccount.get(iCount));
                 }
             }

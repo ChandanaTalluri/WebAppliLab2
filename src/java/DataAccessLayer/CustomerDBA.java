@@ -16,19 +16,28 @@ public class CustomerDBA {
     private static ArrayList<Customer> objArrListCustomer = new ArrayList<Customer>();
     public static void init(){
         Customer objCustomer = new Customer();
-        objCustomer.setCustID(101);
-        objCustomer.setStrCustomerName("Customer ONE");
+        objCustomer.setCustID("101");
+        objCustomer.setStrFirstName("Customer");
+        objCustomer.setStrLastName("ONE");
+        objCustomer.setEmialID("one@cust");
         objCustomer.setStrPhoneNumber("1116358945");
+        objCustomer.setStrPassword("qwerty");
         add(objCustomer);
         Customer objCustomer1 = new Customer();
-        objCustomer1.setCustID(102);
-        objCustomer1.setStrCustomerName("Customer TWO");
+        objCustomer1.setCustID("102");
+        objCustomer1.setStrFirstName("Customer");
+        objCustomer1.setStrLastName("TWO");
+        objCustomer1.setEmialID("two@cust");
         objCustomer1.setStrPhoneNumber("2226358945");
+        objCustomer1.setStrPassword("qwerty");
         add(objCustomer1);
         Customer objCustomer2 = new Customer();
-        objCustomer2.setCustID(103);
-        objCustomer2.setStrCustomerName("Customer THREE");
+        objCustomer2.setCustID("103");
+        objCustomer2.setStrFirstName("Customer");
+        objCustomer2.setStrLastName("Three");
+        objCustomer2.setEmialID("three@cust");
         objCustomer2.setStrPhoneNumber("3336358945");
+        objCustomer2.setStrPassword("qwerty");
         add(objCustomer2);
         
     }
@@ -40,19 +49,43 @@ public class CustomerDBA {
     public static void add(Customer c){
         objArrListCustomer.add(c);
     }
-    public static Customer findCustomerByID(int custID, ArrayList<Customer> arrObjCustomer){
+    public static Customer findCustomerByID(String custID, ArrayList<Customer> arrObjCustomer){
         Customer objCustomer = new Customer();
         if(null != arrObjCustomer && arrObjCustomer.size()>0){
             int iSize = arrObjCustomer.size();
             for(int iCount = 0 ; iCount<iSize ; iCount++){
-                if(custID == arrObjCustomer.get(iCount).getCustID()){
+                if(custID.equals(arrObjCustomer.get(iCount).getCustID())){
                     objCustomer.setCustID(arrObjCustomer.get(iCount).getCustID());
-                    objCustomer.setStrCustomerName(arrObjCustomer.get(iCount).getStrCustomerName());
+                    objCustomer.setStrFirstName(arrObjCustomer.get(iCount).getStrFirstName());
                     objCustomer.setStrPhoneNumber(arrObjCustomer.get(iCount).getStrPhoneNumber());
-                }
+                    objCustomer.setStrLastName(arrObjCustomer.get(iCount).getStrLastName());
+                    }
+                break;
             }
-        
         }
         return objCustomer;
     }
+
+    public static Customer checklogin(String custID, String strPassword, ArrayList<Customer> arrObjCustomer) {
+        Customer objCustomer = new Customer();
+        if(null != arrObjCustomer && arrObjCustomer.size()>0){
+            int iSize = arrObjCustomer.size();
+            for(int iCount = 0 ; iCount<iSize ; iCount++){
+                if(custID.equals(arrObjCustomer.get(iCount).getCustID())
+                        && strPassword.equals(arrObjCustomer.get(iCount).getStrPassword())
+                        ){
+                    objCustomer.setCustID(arrObjCustomer.get(iCount).getCustID());
+                    objCustomer.setStrFirstName(arrObjCustomer.get(iCount).getStrFirstName());
+                    objCustomer.setStrPhoneNumber(arrObjCustomer.get(iCount).getStrPhoneNumber());
+                    objCustomer.setStrLastName(arrObjCustomer.get(iCount).getStrLastName());
+                    }
+                break;
+            }
+        }
+        return objCustomer;
+    }
+    
 }
+
+    
+

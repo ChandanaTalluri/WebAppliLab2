@@ -60,12 +60,12 @@ public class LiabilityAccountDBA {
         objArrListLiabilityAccount.add(objLiabilityAccount);
     }
 
-    public static ArrayList<LiabilityAccount> findAccountDetails(int custID, ArrayList<LiabilityAccount> arrListLiabilityAccount) {
+    public static ArrayList<LiabilityAccount> findAccountDetails(String custID, ArrayList<LiabilityAccount> arrListLiabilityAccount) {
        ArrayList<LiabilityAccount> objLA = new ArrayList<LiabilityAccount>();
         if(null != arrListLiabilityAccount && arrListLiabilityAccount.size()>0){
             int iSize = arrListLiabilityAccount.size();
             for(int iCount = 0 ; iCount<iSize ; iCount++){
-                if(custID == arrListLiabilityAccount.get(iCount).getCustID()){
+                if(custID.equals(arrListLiabilityAccount.get(iCount).getCustID())){
                     objLA.add(arrListLiabilityAccount.get(iCount));
                 }
             }

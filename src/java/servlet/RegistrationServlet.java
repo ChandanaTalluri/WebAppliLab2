@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author 0809379
+ * @author Chandana
  */
-public class LoginServlet extends HttpServlet {
+public class RegistrationServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,17 +30,21 @@ public class LoginServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            
-//        }
-            String strPassword = null;
-            String userID = null;
-            Customer objCustomer = new Customer();
-           try{
-               PrintWriter out = response.getWriter();
-              
-               objCustomer = Customer.loginCustomer(userID, strPassword);
+     try{
+        String url = "/index.html"; 
+     String strCustID = request.getParameter("custID");
+     String strFirstName = request.getParameter("strFirstName");
+     String strLastName = request.getParameter("strLastName");
+     String strEmailID = request.getParameter("email");
+     String strPassword = request.getParameter("strPassword");
+     String strPhoneNumber = request.getParameter("strPhoneNumber");
+     Customer objCustomer = new Customer(strCustID, strFirstName, strLastName, strEmailID, strPhoneNumber, strPassword);
+     Customer objNewCustomer = objCustomer.insertCustomer();
+      request.setAttribute("customer", objNewCustomer);
+            url = "/registration.jsp"; 
+            getServletContext()
+            .getRequestDispatcher(url)
+            .forward(request, response);
            }catch(Exception e){
                
            }

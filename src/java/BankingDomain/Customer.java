@@ -7,19 +7,57 @@ package BankingDomain;
 
 import BankingExceptions.LoginException;
 import DataAccessLayer.CustomerDBA;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Chandana
  */
-public class Customer {
+public class Customer implements Serializable{
     
-    private int custID;
-    private  String strCustomerName;
+    private String custID;
+    private  String strFirstName;
+    private  String strLastName;
     private String strPhoneNumber;
+    private String emialID;
     private String strPassword;
 
+    public String getStrFirstName() {
+        return strFirstName;
+    }
+
+    public void setStrFirstName(String strFirstName) {
+        this.strFirstName = strFirstName;
+    }
+
+    public String getStrLastName() {
+        return strLastName;
+    }
+
+    public void setStrLastName(String strLastName) {
+        this.strLastName = strLastName;
+    }
+
+    public String getEmialID() {
+        return emialID;
+    }
+
+    public void setEmialID(String emialID) {
+        this.emialID = emialID;
+    }
+    
+    public Customer(){
+        
+    }
+    public Customer(String custID,String strFirstName,String strLastName,String emialID,String strPhoneNumber,String strPassword ){
+        this.custID = custID;
+        this.strFirstName = strFirstName;
+        this.strLastName= strLastName;
+        this.strPhoneNumber= strPhoneNumber;
+        this.strPassword = strPassword;
+        this.emialID = emialID;
+    }
     public String getStrPassword() {
         return strPassword;
     }
@@ -28,20 +66,12 @@ public class Customer {
         this.strPassword = strPassword;
     }
     
-    public int getCustID() {
+    public String getCustID() {
         return custID;
     }
 
-    public void setCustID(int custID) {
+    public void setCustID(String custID) {
         this.custID = custID;
-    }
-
-    public String getStrCustomerName() {
-        return strCustomerName;
-    }
-
-    public void setStrCustomerName(String strCustomerName) {
-        this.strCustomerName = strCustomerName;
     }
 
     public String getStrPhoneNumber() {
@@ -61,7 +91,8 @@ public class Customer {
     public String toString() {
         String strCustomizeToString = null;
         strCustomizeToString = "Customer ID: "+ custID + "\n"+
-                                "Customer Name: "+ strCustomerName +"\n"+
+                                "Customer First Name: "+ strFirstName +"\n"+
+                                "Customer Last Name: "+ strLastName +"\n"+
                                 "Customer Contact: "+ strPhoneNumber + "\n";
         
         return strCustomizeToString;
@@ -72,8 +103,19 @@ public class Customer {
         
     }
     
-     public static Customer loginCustomer(String custID,String pass) throws LoginException{
-         
-         return new Customer();
+     public static Customer loginCustomer(String custID,String strPassword) throws LoginException{
+         Customer.init();
+         ArrayList<Customer> objArrayList = Customer.getCustomers();
+         Customer objCust = CustomerDBA.checklogin(custID, strPassword,objArrayList);
+         return objCust;
+     }
+     public  Customer insertCustomer(){
+         CustomerDBA.add(new Customer(custID, strFirstName, strLastName, emialID, strPhoneNumber, strPassword));
+         ArrayList<Customer> arrCustomer = new ArrayList<Customer>();
+         arrCustomer = CustomerDBA.getCustomers();
+         for(int i =0; i<arrCustomer.size();i++){
+              System.out.println(arrCustomer.get(i));
+         }
+         return arrCustomer.get(0);
      }
 }
