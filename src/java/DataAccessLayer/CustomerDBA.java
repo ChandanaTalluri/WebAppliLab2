@@ -29,7 +29,7 @@ public class CustomerDBA {
         objCustomer1.setStrLastName("TWO");
         objCustomer1.setEmialID("two@cust");
         objCustomer1.setStrPhoneNumber("2226358945");
-        objCustomer1.setStrPassword("qwerty");
+        objCustomer1.setStrPassword("102");
         add(objCustomer1);
         Customer objCustomer2 = new Customer();
         objCustomer2.setCustID("103");
@@ -59,6 +59,7 @@ public class CustomerDBA {
                     objCustomer.setStrFirstName(arrObjCustomer.get(iCount).getStrFirstName());
                     objCustomer.setStrPhoneNumber(arrObjCustomer.get(iCount).getStrPhoneNumber());
                     objCustomer.setStrLastName(arrObjCustomer.get(iCount).getStrLastName());
+                    objCustomer.setEmialID(arrObjCustomer.get(iCount).getEmialID());
                     }
                 break;
             }
@@ -66,8 +67,9 @@ public class CustomerDBA {
         return objCustomer;
     }
 
-    public static Customer checklogin(String custID, String strPassword, ArrayList<Customer> arrObjCustomer) {
+    public static Customer checklogin(String custID, String strPassword) {
         Customer objCustomer = new Customer();
+        ArrayList<Customer> arrObjCustomer = Customer.getCustomers();
         if(null != arrObjCustomer && arrObjCustomer.size()>0){
             int iSize = arrObjCustomer.size();
             for(int iCount = 0 ; iCount<iSize ; iCount++){
@@ -78,8 +80,8 @@ public class CustomerDBA {
                     objCustomer.setStrFirstName(arrObjCustomer.get(iCount).getStrFirstName());
                     objCustomer.setStrPhoneNumber(arrObjCustomer.get(iCount).getStrPhoneNumber());
                     objCustomer.setStrLastName(arrObjCustomer.get(iCount).getStrLastName());
-                    }
-                break;
+                      break;
+                    }   
             }
         }
         return objCustomer;

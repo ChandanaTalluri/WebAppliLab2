@@ -12,7 +12,7 @@
         <title>Login</title>
     </head>
     <body style=" background-image: url(images/other4.jpg)">
-        <h1>Welcome <spam>${customer.strFirstName}</spam> !!</h1>
+        <h1>Welcome <spam>${customer.strLastName}</spam> !!</h1>
         <form action="index.html" method="get">
         <input type="hidden" name="action" value="join">
         <input type="submit" value="Return">

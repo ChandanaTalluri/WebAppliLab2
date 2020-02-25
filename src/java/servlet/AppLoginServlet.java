@@ -9,6 +9,7 @@ import BankingDomain.Customer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,10 +39,14 @@ public class AppLoginServlet extends HttpServlet {
                String strCusID = request.getParameter("custID");
                String password = request.getParameter("strPassword");
               
+              ArrayList<Customer> arrListCustomer = Customer.getCustomers();
+             
+              if(arrListCustomer.isEmpty() ){
+                  Customer.init();
+                  arrListCustomer = Customer.getCustomers();
+              } 
+              System.out.println(arrListCustomer.get(0));
                objCustomer = Customer.loginCustomer(strCusID, password);
-               System.out.println(objCustomer);
-               //objCustomer.setCustID(strCusID);
-               ///objCustomer.setStrFirstName("Customer One");
                 // set User object in request object and set URL
             request.setAttribute("customer", objCustomer);
             url = "/login.jsp"; 

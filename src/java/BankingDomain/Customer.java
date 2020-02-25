@@ -104,18 +104,14 @@ public class Customer implements Serializable{
     }
     
      public static Customer loginCustomer(String custID,String strPassword) throws LoginException{
-         Customer.init();
-         ArrayList<Customer> objArrayList = Customer.getCustomers();
-         Customer objCust = CustomerDBA.checklogin(custID, strPassword,objArrayList);
+        
+         Customer objCust = CustomerDBA.checklogin(custID, strPassword);
+         System.out.println(objCust);
          return objCust;
      }
      public  Customer insertCustomer(){
          CustomerDBA.add(new Customer(custID, strFirstName, strLastName, emialID, strPhoneNumber, strPassword));
-         ArrayList<Customer> arrCustomer = new ArrayList<Customer>();
-         arrCustomer = CustomerDBA.getCustomers();
-         for(int i =0; i<arrCustomer.size();i++){
-              System.out.println(arrCustomer.get(i));
-         }
-         return arrCustomer.get(0);
+         Customer objCustomer = CustomerDBA.findCustomerByID(custID, CustomerDBA.getCustomers());
+         return objCustomer;
      }
 }
