@@ -36,7 +36,7 @@ public class AppLoginServlet extends HttpServlet {
             Customer objCustomer = new Customer();
             String url = "/login.html";
            try{
-               String strCusID = request.getParameter("custID");
+               String userID = request.getParameter("userID");
                String password = request.getParameter("strPassword");
               
               ArrayList<Customer> arrListCustomer = Customer.getCustomers();
@@ -46,10 +46,14 @@ public class AppLoginServlet extends HttpServlet {
                   arrListCustomer = Customer.getCustomers();
               } 
               System.out.println(arrListCustomer.get(0));
-               objCustomer = Customer.loginCustomer(strCusID, password);
+               objCustomer = Customer.loginCustomer(userID, password);
                 // set User object in request object and set URL
+                System.out.println(objCustomer);
             request.setAttribute("customer", objCustomer);
             url = "/login.jsp"; 
+            if(null==objCustomer.getStrFirstName()){
+                url = "/loginError.jsp"; 
+            }
             getServletContext()
             .getRequestDispatcher(url)
             .forward(request, response);

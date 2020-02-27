@@ -26,7 +26,7 @@ public class CustomerDetailsUtility {
             System.out.println("List of Customers with account details");
             for(int i=0;i< arrListCustomer.size();i++ ){
             System.out.println("********************************************************");
-            String custID = arrListCustomer.get(i).getCustID();
+            String custID = arrListCustomer.get(i).getUserID();
             Customer objCustomer  = CustomerDBA.findCustomerByID(custID, arrListCustomer);
             System.out.println(objCustomer);
             if(null!=custID){

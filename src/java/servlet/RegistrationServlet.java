@@ -8,6 +8,7 @@ package servlet;
 import BankingDomain.Customer;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -32,16 +33,25 @@ public class RegistrationServlet extends HttpServlet {
             throws ServletException, IOException {
      try{
         String url = "/index.html"; 
-     String strCustID = request.getParameter("custID");
+     String strUserID = request.getParameter("userID");
      String strFirstName = request.getParameter("strFirstName");
      String strLastName = request.getParameter("strLastName");
-     String strEmailID = request.getParameter("email");
+     String strEmailID = request.getParameter("emialID");
      String strPassword = request.getParameter("strPassword");
      String strPhoneNumber = request.getParameter("strPhoneNumber");
-     Customer objCustomer = new Customer(strCustID, strFirstName, strLastName, strEmailID, strPhoneNumber, strPassword);
+     ArrayList<Customer> arrListCustomer = Customer.getCustomers();
+             
+              if(arrListCustomer.isEmpty() ){
+                  Customer.init();
+                  arrListCustomer = Customer.getCustomers();
+              } 
+     Customer objCustomer = new Customer(strUserID, strFirstName, strLastName, strEmailID, strPhoneNumber, strPassword);
      Customer objNewCustomer = objCustomer.insertCustomer();
       request.setAttribute("customer", objNewCustomer);
             url = "/registration.jsp"; 
+            if(objNewCustomer.isBlUserIDExits()){
+                url = "/loginError.jsp"; 
+            }
             getServletContext()
             .getRequestDispatcher(url)
             .forward(request, response);

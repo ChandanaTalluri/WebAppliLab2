@@ -17,9 +17,40 @@
     <h1>Thanks for registering in Easy Banking</h1>
 
     <p>Here is the information that you entered:</p>
-
-    <label>User ID</label>
-    <span>${customer.custID}</span><br>
+<div class= "row">
+    <div class="col-md-5">
+        <table>
+            <tr>
+                <td>User ID: </td>
+                <td>${customer.userID}</td>
+            </tr>
+            <tr>
+                <td>First Name: </td>
+                <td>${customer.strFirstName}</td>
+            </tr>
+            <tr>
+                <td>Last Name: </td>
+                <td>${customer.strLastName}</td>
+            </tr>
+            <tr>
+                <td>Email ID: </td>
+                <td>${customer.emialID}</td>
+            </tr>
+            <tr>
+                <td>Contact Number: </td>
+                <td>${customer.strPhoneNumber}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        
+    </div>
+            <div class="col-md-5"></div>
+</div>
+<!--    <label>User ID</label>
+    <span>${customer.userID}</span><br>
     <label>First Name:</label>
     <span>${customer.strFirstName}</span><br>
     <label>Last Name:</label>
@@ -27,7 +58,7 @@
     <label>Email ID:</label>
     <span>${customer.emialID}</span><br>
     <label>Contact Number:</label>
-    <span>${customer.strPhoneNumber}</span><br>
+    <span>${customer.strPhoneNumber}</span><br>-->
     
     <form action="index.html" method="get">
         <input type="hidden" name="action" value="join">

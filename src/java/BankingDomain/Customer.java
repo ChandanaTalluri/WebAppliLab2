@@ -16,12 +16,42 @@ import java.util.ArrayList;
  */
 public class Customer implements Serializable{
     
-    private String custID;
-    private  String strFirstName;
-    private  String strLastName;
-    private String strPhoneNumber;
-    private String emialID;
-    private String strPassword;
+    private String userID = null;
+    private  String strFirstName = null;
+    private  String strLastName = null;
+    private String strPhoneNumber = null;
+    private String emialID = null;
+    private String strPassword = null;
+    private int custID = 1;
+    private String strLoginStatus = "Login Successfull";
+    private boolean blUserIDExits;
+
+    public boolean isBlUserIDExits() {
+        return blUserIDExits;
+    }
+
+    public void setBlUserIDExits(boolean blUserIDExits) {
+        this.blUserIDExits = blUserIDExits;
+    }
+    
+
+    public String getStrLoginStatus() {
+        return strLoginStatus;
+    }
+
+    public void setStrLoginStatus(String strLoginStatus) {
+        this.strLoginStatus = strLoginStatus;
+    }
+
+    public int getCustID() {
+        return custID;
+    }
+
+    public void setCustID(int custID) {
+        this.custID = custID;
+    }
+
+   
 
     public String getStrFirstName() {
         return strFirstName;
@@ -50,8 +80,8 @@ public class Customer implements Serializable{
     public Customer(){
         
     }
-    public Customer(String custID,String strFirstName,String strLastName,String emialID,String strPhoneNumber,String strPassword ){
-        this.custID = custID;
+    public Customer(String userID,String strFirstName,String strLastName,String emialID,String strPhoneNumber,String strPassword ){
+        this.userID = userID;
         this.strFirstName = strFirstName;
         this.strLastName= strLastName;
         this.strPhoneNumber= strPhoneNumber;
@@ -66,12 +96,12 @@ public class Customer implements Serializable{
         this.strPassword = strPassword;
     }
     
-    public String getCustID() {
-        return custID;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setCustID(String custID) {
-        this.custID = custID;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public String getStrPhoneNumber() {
@@ -90,7 +120,8 @@ public class Customer implements Serializable{
     @Override
     public String toString() {
         String strCustomizeToString = null;
-        strCustomizeToString = "Customer ID: "+ custID + "\n"+
+        strCustomizeToString = "User ID: "+ userID + "\n"+
+                                "Customer ID: "+ custID +"\n"+
                                 "Customer First Name: "+ strFirstName +"\n"+
                                 "Customer Last Name: "+ strLastName +"\n"+
                                 "Customer Contact: "+ strPhoneNumber + "\n";
@@ -110,8 +141,17 @@ public class Customer implements Serializable{
          return objCust;
      }
      public  Customer insertCustomer(){
-         CustomerDBA.add(new Customer(custID, strFirstName, strLastName, emialID, strPhoneNumber, strPassword));
-         Customer objCustomer = CustomerDBA.findCustomerByID(custID, CustomerDBA.getCustomers());
+         Customer objnewCustomer = new Customer(userID, strFirstName, strLastName, emialID, strPhoneNumber, strPassword);
+         
+         ArrayList<Customer> arrObjCust = CustomerDBA.getCustomers();
+         Customer objCustomerExists = CustomerDBA.checkUserID(userID, arrObjCust);
+         if(objCustomerExists.isBlUserIDExits()){
+             return objCustomerExists;
+         }else{
+             CustomerDBA.add(objnewCustomer);
+             Customer objCustomer = CustomerDBA.findCustomerByID(userID, arrObjCust);
          return objCustomer;
+         }
      }
+     
 }
