@@ -7,12 +7,12 @@ package servlet;
 
 import BankingDomain.Customer;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -31,8 +31,9 @@ public class RegistrationServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         String url = "/index.html"; 
      try{
-        String url = "/index.html"; 
+       
      String strUserID = request.getParameter("userID");
      String strFirstName = request.getParameter("strFirstName");
      String strLastName = request.getParameter("strLastName");
@@ -48,15 +49,19 @@ public class RegistrationServlet extends HttpServlet {
      Customer objCustomer = new Customer(strUserID, strFirstName, strLastName, strEmailID, strPhoneNumber, strPassword);
      Customer objNewCustomer = objCustomer.insertCustomer();
       request.setAttribute("customer", objNewCustomer);
-            url = "/registration.jsp"; 
-            if(objNewCustomer.isBlUserIDExits()){
-                url = "/loginError.jsp"; 
-            }
+            url = "/registrationSuccess.jsp"; 
+           
             getServletContext()
             .getRequestDispatcher(url)
             .forward(request, response);
            }catch(Exception e){
-               
+               url = "/register.jsp"; 
+               request.setAttribute("message", e.getMessage());
+               HttpSession session = request.getSession();
+               session.setAttribute("message", e.getMessage());
+               getServletContext()
+            .getRequestDispatcher(url)
+            .forward(request, response);
            }
     }
 

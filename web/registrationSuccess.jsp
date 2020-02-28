@@ -49,16 +49,7 @@
     </div>
             <div class="col-md-5"></div>
 </div>
-<!--    <label>User ID</label>
-    <span>${customer.userID}</span><br>
-    <label>First Name:</label>
-    <span>${customer.strFirstName}</span><br>
-    <label>Last Name:</label>
-    <span>${customer.strFirstName}</span><br>
-    <label>Email ID:</label>
-    <span>${customer.emialID}</span><br>
-    <label>Contact Number:</label>
-    <span>${customer.strPhoneNumber}</span><br>-->
+
     
     <form action="index.html" method="get">
         <input type="hidden" name="action" value="join">

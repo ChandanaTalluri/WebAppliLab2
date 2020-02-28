@@ -27,7 +27,7 @@ and open the template in the editor.
         <div class= "row">
             <div class="col-md-3"></div>
             <div class="col-md-5">
-                
+                <h3> <spam>${message}</spam> </h3> <!-- message will print login exception-->
         <form action="registration" method="post">
             <table class="reg_tb">
                 <tr>
@@ -67,7 +67,7 @@ and open the template in the editor.
        
     </form>
         </div>
-            <div class="col-md-8S"></div>
+            <div class="col-md-8"></div>
       </div>
         
     </div>

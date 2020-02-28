@@ -7,13 +7,12 @@ package servlet;
 
 import BankingDomain.Customer;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Serializable;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,25 +39,31 @@ public class AppLoginServlet extends HttpServlet {
                String password = request.getParameter("strPassword");
               
               ArrayList<Customer> arrListCustomer = Customer.getCustomers();
-             
+             //checking arrListCustomer size to avoid calling init method multiple times
               if(arrListCustomer.isEmpty() ){
                   Customer.init();
                   arrListCustomer = Customer.getCustomers();
               } 
-              System.out.println(arrListCustomer.get(0));
+              
                objCustomer = Customer.loginCustomer(userID, password);
                 // set User object in request object and set URL
                 System.out.println(objCustomer);
             request.setAttribute("customer", objCustomer);
-            url = "/login.jsp"; 
-            if(null==objCustomer.getStrFirstName()){
-                url = "/loginError.jsp"; 
-            }
+            request.setAttribute("welocme", "Welcome");
+            request.setAttribute("message", "Login Successful");
+            url = "/loginSuccess.jsp"; 
+
             getServletContext()
             .getRequestDispatcher(url)
             .forward(request, response);
            }catch(Exception e){
-               
+               url = "/login.jsp"; 
+               request.setAttribute("message", e.getMessage());
+               HttpSession session = request.getSession();
+               session.setAttribute("message", e.getMessage());
+               getServletContext()
+            .getRequestDispatcher(url)
+            .forward(request, response);
            }
     }
 

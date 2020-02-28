@@ -22,9 +22,8 @@ public class Customer implements Serializable{
     private String strPhoneNumber = null;
     private String emialID = null;
     private String strPassword = null;
-    private int custID = 1;
-    private String strLoginStatus = "Login Successfull";
-    private boolean blUserIDExits;
+    private int custID;
+    private boolean blUserIDExits;//boolean used to avoid registration with same user id
 
     public boolean isBlUserIDExits() {
         return blUserIDExits;
@@ -34,15 +33,6 @@ public class Customer implements Serializable{
         this.blUserIDExits = blUserIDExits;
     }
     
-
-    public String getStrLoginStatus() {
-        return strLoginStatus;
-    }
-
-    public void setStrLoginStatus(String strLoginStatus) {
-        this.strLoginStatus = strLoginStatus;
-    }
-
     public int getCustID() {
         return custID;
     }
@@ -135,12 +125,13 @@ public class Customer implements Serializable{
     }
     
      public static Customer loginCustomer(String custID,String strPassword) throws LoginException{
-        
+        //this method is used to check login
          Customer objCust = CustomerDBA.checklogin(custID, strPassword);
          System.out.println(objCust);
          return objCust;
      }
-     public  Customer insertCustomer(){
+     public  Customer insertCustomer() throws LoginException{
+         //this method is used to insert a new user
          Customer objnewCustomer = new Customer(userID, strFirstName, strLastName, emialID, strPhoneNumber, strPassword);
          
          ArrayList<Customer> arrObjCust = CustomerDBA.getCustomers();

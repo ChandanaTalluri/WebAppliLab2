@@ -6,6 +6,7 @@
 package DataAccessLayer;
 
 import BankingDomain.Customer;
+import BankingExceptions.LoginException;
 import java.util.ArrayList;
 
 /**
@@ -50,6 +51,7 @@ public class CustomerDBA {
         
     }
     public static void add(Customer c){
+        //everytime a new customer is added increments customer id by one
         int custID = c.getCustID();
         if(custID==1){
             c.setCustID(1 +objArrListCustomer.size());
@@ -57,6 +59,7 @@ public class CustomerDBA {
         objArrListCustomer.add(c);
     }
     public static Customer findCustomerByID(String userID, ArrayList<Customer> arrObjCustomer){
+        //this method is used to find user id
         Customer objCustomer = new Customer();
         if(null != arrObjCustomer && arrObjCustomer.size()>0){
             int iSize = arrObjCustomer.size();
@@ -73,25 +76,30 @@ public class CustomerDBA {
         }
         return objCustomer;
     }
-    public static Customer checkUserID(String userID, ArrayList<Customer> arrObjCustomer){
+    public static Customer checkUserID(String userID, ArrayList<Customer> arrObjCustomer) throws LoginException{
         Customer objCustomer = new Customer();
+        try{
+            
         if(null != arrObjCustomer && arrObjCustomer.size()>0){
             int iSize = arrObjCustomer.size();
             for(int iCount = 0 ; iCount<iSize ; iCount++){
                 if(userID.equals(arrObjCustomer.get(iCount).getUserID())){
-                    objCustomer.setStrLoginStatus("User ID already exists" +"\n"+" Please try with other User ID");
                     objCustomer.setBlUserIDExits(true);
-                    break;
-                    }
-               
+                    throw new LoginException("User ID already exists" +"\n"+" Please try with other User ID !!");
+                    }      
             }
         }
+        }catch(Exception e){
+            throw new LoginException(e.getMessage());
+        }  
         return objCustomer;
     }
-    public static Customer checklogin(String userID, String strPassword) {
+    public static Customer checklogin(String userID, String strPassword) throws LoginException {
+        //this method check if user id and password is correct or not if not will return error message
         Customer objCustomer = new Customer();
         ArrayList<Customer> arrObjCustomer = Customer.getCustomers();
-        if(null != arrObjCustomer && arrObjCustomer.size()>0){
+        try{
+             if(null != arrObjCustomer && arrObjCustomer.size()>0){
             int iSize = arrObjCustomer.size();
             for(int iCount = 0 ; iCount<iSize ; iCount++){
                 if(userID.equals(arrObjCustomer.get(iCount).getUserID())
@@ -108,18 +116,22 @@ public class CustomerDBA {
                  if(userID.equals(arrObjCustomer.get(jCount).getUserID())
                         && !strPassword.equals(arrObjCustomer.get(jCount).getStrPassword())
                         ){
-                    objCustomer.setStrLoginStatus("Password incorrect"+" \n"+" Please try again");
-                    break;
+                    
+                    throw new LoginException("Password incorrect"+" \n"+" Please try again!!");
+                    
                 }
                 else if(!userID.equals(arrObjCustomer.get(jCount).getUserID())
                         && !strPassword.equals(arrObjCustomer.get(jCount).getStrPassword())
                         ){
-                    objCustomer.setStrLoginStatus("User ID and password is incorrect"+" \n"+" Please try again");
-                    break;
+                    
+                    throw new LoginException("User ID and password is incorrect"+" \n"+" Please try again!!");
                 }
             }
         }
-        return objCustomer;
+          return objCustomer;    
+        }catch(Exception e){
+            throw new LoginException(e.getMessage());
+        }
     }
     
 }

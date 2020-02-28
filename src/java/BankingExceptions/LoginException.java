@@ -10,5 +10,7 @@ package BankingExceptions;
  * @author 0809379
  */
 public class LoginException extends Exception{
-   
+   public LoginException(String strErrorMessage){
+       super(strErrorMessage);
+   }
 }
