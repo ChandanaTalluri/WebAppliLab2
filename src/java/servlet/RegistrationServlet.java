@@ -41,6 +41,8 @@ public class RegistrationServlet extends HttpServlet {
      String strPassword = request.getParameter("strPassword");
      String strPhoneNumber = request.getParameter("strPhoneNumber");
      ArrayList<Customer> arrListCustomer = Customer.getCustomers();
+     HttpSession session = request.getSession();
+               session.setAttribute("message", ""); //to avoid printing error message from last session
              
               if(arrListCustomer.isEmpty() ){
                   Customer.init();

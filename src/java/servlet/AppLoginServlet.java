@@ -34,10 +34,12 @@ public class AppLoginServlet extends HttpServlet {
         
             Customer objCustomer = new Customer();
             String url = "/login.html";
+            HttpSession session = request.getSession();
+               
            try{
                String userID = request.getParameter("userID");
                String password = request.getParameter("strPassword");
-              
+              session.setAttribute("message", "");//to avoid printing error message from last session
               ArrayList<Customer> arrListCustomer = Customer.getCustomers();
              //checking arrListCustomer size to avoid calling init method multiple times
               if(arrListCustomer.isEmpty() ){
@@ -59,7 +61,7 @@ public class AppLoginServlet extends HttpServlet {
            }catch(Exception e){
                url = "/login.jsp"; 
                request.setAttribute("message", e.getMessage());
-               HttpSession session = request.getSession();
+              // HttpSession session = request.getSession();
                session.setAttribute("message", e.getMessage());
                getServletContext()
             .getRequestDispatcher(url)
